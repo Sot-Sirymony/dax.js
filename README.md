@@ -15,8 +15,10 @@ A lightweight, high-performance JavaScript library for building user interfaces 
 ### Upcoming Features
 
 #### Performance & Memory
-- Key-based reconciliation for optimized diffing
-- Fragment support for reduced DOM nodes
+- Key-based reconciliation for optimized diffing (In Progress)
+  - Key detection system implemented
+  - Node reordering optimization ongoing
+- Fragment support for reduced DOM nodes (In Development)
 - Advanced memory management with leak detection
 - Event listener cleanup and weak references
 

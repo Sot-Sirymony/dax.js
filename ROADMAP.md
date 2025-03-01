@@ -17,9 +17,12 @@ DaxJS currently provides:
 
 - [x] Implement batch updates for Virtual DOM operations
 - [x] Add memoization for frequently accessed virtual nodes
-- [ ] Optimize diffing algorithm with key-based reconciliation
-- [ ] Implement shouldComponentUpdate equivalent for preventing unnecessary renders
-- [ ] Add support for fragments to reduce DOM nodes
+- [x] Optimize diffing algorithm with key-based reconciliation (In Progress)
+  - Key detection system implemented
+  - Node reordering optimization ongoing
+  - Performance benchmarking in progress
+- [x] Implement shouldComponentUpdate equivalent (In Progress)
+- [ ] Add support for fragments to reduce DOM nodes (In Development)
 
 ### 2. Memory Management (High Priority)
 

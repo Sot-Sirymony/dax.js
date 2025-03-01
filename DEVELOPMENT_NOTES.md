@@ -18,8 +18,11 @@ DaxJS is a modern JavaScript framework focused on providing efficient Virtual DO
   - Batch updates for Virtual DOM operations ✓
   - Memoization for virtual nodes ✓
   - Key-based reconciliation (In Progress)
-  - shouldComponentUpdate implementation (Planned)
-  - Fragment support (Planned)
+    - Key detection system implemented
+    - Node reordering algorithm in testing
+    - Performance benchmarking ongoing
+  - shouldComponentUpdate implementation (In Progress)
+  - Fragment support (In Development)
 
 - Memory management improvements
   - Event listener cleanup
