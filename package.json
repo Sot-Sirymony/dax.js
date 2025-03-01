@@ -1,6 +1,6 @@
 {
   "name": "@sirymony/dax",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A lightweight JavaScript library for building user interfaces with Virtual DOM",
   "main": "dist/dax.js",
   "module": "dist/dax.esm.js",

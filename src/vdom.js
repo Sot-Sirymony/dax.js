@@ -1,6 +1,8 @@
 class VirtualDOM {
     constructor() {
         this.patches = [];
+        this.batchUpdate = new BatchUpdate();
+        this.memoization = new Memoization();
     }
 
     createElement(type, props = {}, ...children) {
@@ -40,21 +42,24 @@ class VirtualDOM {
 
     patch(parent, patches, index = 0) {
         if (!patches) return;
-        if (patches.type === 'CREATE') {
-            parent.appendChild(this.create(patches.newNode));
-        } else if (patches.type === 'REMOVE') {
-            parent.removeChild(parent.childNodes[index]);
-        } else if (patches.type === 'REPLACE') {
-            parent.replaceChild(
-                this.create(patches.newNode),
-                parent.childNodes[index]
-            );
-        } else if (patches.type === 'PATCH') {
-            const element = parent.childNodes[index];
-            patches.patches.forEach((patch, i) => {
-                this.patch(element, patch, i);
-            });
-        }
+        const update = () => {
+            if (patches.type === 'CREATE') {
+                parent.appendChild(this.create(patches.newNode));
+            } else if (patches.type === 'REMOVE') {
+                parent.removeChild(parent.childNodes[index]);
+            } else if (patches.type === 'REPLACE') {
+                parent.replaceChild(
+                    this.create(patches.newNode),
+                    parent.childNodes[index]
+                );
+            } else if (patches.type === 'PATCH') {
+                const element = parent.childNodes[index];
+                patches.patches.forEach((patch, i) => {
+                    this.patch(element, patch, i);
+                });
+            }
+        };
+        this.batchUpdate.add(update);
     }
 
     create(node) {
@@ -62,15 +67,8 @@ class VirtualDOM {
             return document.createTextNode(node);
         }
         const element = document.createElement(node.type);
-        Object.entries(node.props).forEach(([name, value]) => {
-            if (name.startsWith('on')) {
-                element.addEventListener(
-                    name.slice(2).toLowerCase(),
-                    value
-                );
-            } else {
-                element.setAttribute(name, value);
-            }
+        Object.entries(node.props || {}).forEach(([name, value]) => {
+            element.setAttribute(name, value);
         });
         node.children.forEach(child => {
             element.appendChild(this.create(child));
