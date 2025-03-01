@@ -4,12 +4,40 @@ A lightweight, high-performance JavaScript library for building user interfaces 
 
 ## Features
 
+### Current Features
 - Optimized Virtual DOM implementation with batch updates
 - Efficient memoization for frequently accessed nodes
 - Robust event management system
 - Component lifecycle management
 - Props validation with type checking and custom validators
 - State management with reactive updates
+
+### Upcoming Features
+
+#### Performance & Memory
+- Key-based reconciliation for optimized diffing
+- Fragment support for reduced DOM nodes
+- Advanced memory management with leak detection
+- Event listener cleanup and weak references
+
+#### Developer Experience
+- Developer tools extension
+- Enhanced TypeScript support
+- Component hot reloading
+- Performance profiling tools
+
+#### State Management
+- Computed properties
+- State middleware system
+- Time-travel debugging
+- State persistence
+
+#### Component Features
+- Async rendering support
+- Suspense functionality
+- Server-side rendering
+- Component lazy loading
+- Enhanced lifecycle hooks
 
 ## Installation
 
