@@ -1,13 +1,15 @@
 # DaxJS
 
-A lightweight JavaScript library for building user interfaces with Virtual DOM.
+A lightweight, high-performance JavaScript library for building user interfaces with Virtual DOM.
 
 ## Features
 
-- Virtual DOM implementation for efficient DOM updates
-- Event management system
-- Lifecycle management
+- Optimized Virtual DOM implementation with batch updates
+- Efficient memoization for frequently accessed nodes
+- Robust event management system
+- Component lifecycle management
 - Props validation with type checking and custom validators
+- State management with reactive updates
 
 ## Installation
 
@@ -18,24 +20,37 @@ npm install @sirymony/dax
 ## Usage
 
 ```javascript
-import { VirtualDOM, EventManager, LifecycleManager, PropsValidator } from '@sirymony/dax';
+import { VirtualDOM, EventManager, LifecycleManager, PropsValidator, BatchUpdate } from '@sirymony/dax';
 
-// Create a virtual DOM element
+// Create a virtual DOM element with batch updates
 const vdom = new VirtualDOM();
+const batchUpdate = new BatchUpdate();
+
 const element = vdom.createElement('div', { className: 'container' },
   vdom.createElement('h1', {}, 'Hello World'),
   vdom.createElement('p', {}, 'Welcome to DaxJS')
 );
 
-// Handle events
+// Batch multiple DOM updates for better performance
+batchUpdate.add(() => {
+  vdom.updateElement(element, { className: 'container active' });
+  vdom.appendChild(element, vdom.createElement('span', {}, 'New content'));
+});
+
+// Handle events efficiently
 const events = new EventManager();
-events.on('click', (e) => console.log('Clicked!'));
+events.on('click', (e) => {
+  batchUpdate.add(() => {
+    // Updates will be batched together
+    console.log('Clicked!');
+  });
+});
 
 // Manage component lifecycle
 const lifecycle = new LifecycleManager();
 lifecycle.onMount(() => console.log('Component mounted'));
 
-// Validate props
+// Validate props with type checking
 const validator = new PropsValidator();
 const schema = {
   name: { type: 'string', required: true },
