@@ -9,6 +9,11 @@ class Memoization {
         const cacheKey = this.createCacheKey(key, dependencies);
         
         if (this.shouldUpdateCache(cacheKey, dependencies)) {
+            const cachedNode = this.memoizedNodes.get(cacheKey);
+            if (cachedNode) {
+                return cachedNode.vnode;
+            }
+
             this.memoizedNodes.set(cacheKey, {
                 vnode: this.deepClone(vnode),
                 dependencies: [...dependencies],
@@ -32,6 +37,7 @@ class Memoization {
         const cached = this.memoizedNodes.get(cacheKey);
         if (!cached) return true;
 
+        cached.lastAccessed = Date.now();
         return !this.areDepsSame(cached.dependencies, newDependencies);
     }
 
